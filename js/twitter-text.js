@@ -523,6 +523,9 @@
       attrs.target = '_blank';
     }
 
+    if (options.disableHashtags) {
+      return hash + hashtag;
+    }
     return twttr.txt.linkToTextWithSymbol(entity, hash, hashtag, attrs, options);
   };
 
@@ -536,6 +539,9 @@
       attrs.target = '_blank';
     }
 
+    if (options.disableCashtags) {
+      return '$' + cashtag;
+    }
     return twttr.txt.linkToTextWithSymbol(entity, "$", cashtag, attrs, options);
   };
 
@@ -554,10 +560,16 @@
       attrs.target = '_blank';
     }
 
+    if (options.disableUsernames) {
+      return at + (isList ? user + slashListname : user);
+    }
     return twttr.txt.linkToTextWithSymbol(entity, at, isList ? user + slashListname : user, attrs, options);
   };
 
   twttr.txt.linkToUrl = function(entity, text, options) {
+    if (options.disableUrls) {
+      return entity.url;
+    }
     var url = entity.url;
     var displayUrl = url;
     var linkText = twttr.txt.htmlEscape(displayUrl);
